@@ -49,6 +49,25 @@ func main() {
 	// }
 	// fmt.Println(tr)
 	// ------------------------------------------------
+	// tr1 := []int{1, 2, 3}
+	// tr2 := []int{4, 5, 6}
+	// tr1 = append(tr1, tr2...)
+	// fmt.Println(tr1)
+
+	// for index, value := range tr1 {
+	// 	fmt.Println(index, value)
+	// }
+
+	tr := make([]string, 0, 2)
+	fmt.Println(len(tr), cap(tr))
+	tr = append(tr, "1")
+	fmt.Println(len(tr), cap(tr))
+	tr = append(tr, "2")
+	fmt.Println(len(tr), cap(tr))
+	tr = append(tr, "3")
+	fmt.Println(len(tr), cap(tr))
+	fmt.Println(tr)
+
 	transactions := []float64{}
 	for {
 		transaction := scanTransaction()
@@ -57,11 +76,19 @@ func main() {
 		}
 		transactions = append(transactions, transaction)
 	}
-	fmt.Println(transactions)
+	balance := calculateBalance(transactions)
+	fmt.Printf("Ваш баланс: %.2f", balance)
 }
 
 func scanTransaction() (transaction float64) {
 	fmt.Print("Введите транзакцию (n для выхода): ")
 	fmt.Scan(&transaction)
 	return transaction
+}
+
+func calculateBalance(transactions []float64) (balance float64) {
+	for _, value := range transactions {
+		balance += value
+	}
+	return balance
 }
